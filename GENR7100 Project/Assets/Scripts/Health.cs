@@ -8,21 +8,25 @@ public class Health : MonoBehaviour
     public Slider playerSlider3D;
     Slider playerSlider2D;
 
-    public int health;
+    Stats statsScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        statsScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
+
         playerSlider2D = GetComponent<Slider>();
 
-        playerSlider2D.maxValue = health;
-        playerSlider3D.maxValue = health;
+        playerSlider2D.maxValue = statsScript.maxHealth;
+        playerSlider3D.maxValue = statsScript.maxHealth;
+        statsScript.currentHealth = statsScript.maxHealth;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerSlider2D.value = health;
+        playerSlider2D.value = statsScript.currentHealth;
         playerSlider3D.value = playerSlider2D.value;
     }
 }

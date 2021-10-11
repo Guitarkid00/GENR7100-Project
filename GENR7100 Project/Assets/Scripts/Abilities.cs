@@ -86,10 +86,17 @@ public class Abilities : MonoBehaviour
 
         //Ability 4 Inputs
 
-
+        /*
         //Ability 1 Canvas Inputs
         Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
         ability1Canvas.transform.rotation = Quaternion.Lerp(transRot, ability1Canvas.transform.rotation, 0f);
+        */
+
+        //ability 1 canvas inputs
+        Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
+        transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, 0);  // add this code 
+        ability1Canvas.transform.rotation = Quaternion.Lerp(transRot, ability1Canvas.transform.rotation, 0f);
+
 
         //Ability 2 Canvas Inputs
 
