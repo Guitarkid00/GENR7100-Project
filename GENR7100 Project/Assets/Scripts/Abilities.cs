@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Abilities : MonoBehaviour
 {
+    private Stats statScript;
+
     [Header("Ability 1")]
     public Image abilityImage1;
     public float cooldown1 = 5;
@@ -15,12 +17,15 @@ public class Abilities : MonoBehaviour
     public Canvas ability1Canvas;
     public Image skillshot;
     public Transform player;
+    public GameObject QProjectile;
 
     [Header("Ability 2")]
     public Image abilityImage2;
     public float cooldown2 = 5;
     bool isCooldown2 = false;
     public KeyCode ability2;
+    public ParticleSystem WParticles;
+    public int WHealAmount;
 
     [Header("Ability 3")]
     public Image abilityImage3;
@@ -40,6 +45,8 @@ public class Abilities : MonoBehaviour
     public float cooldown4 = 5;
     bool isCooldown4 = false;
     public KeyCode ability4;
+    public int RDuration = 10;
+    public float RMultiplier = 2.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +59,7 @@ public class Abilities : MonoBehaviour
         skillshot.GetComponent<Image>().enabled = false;
         targetCircle.GetComponent<Image>().enabled = false;
         indicatorRangeCircle.GetComponent<Image>().enabled = false;
+        statScript = GetComponent<Stats>();
     }
 
     // Update is called once per frame
@@ -126,6 +134,9 @@ public class Abilities : MonoBehaviour
         {
             isCooldown1 = true;
             abilityImage1.fillAmount = 1;
+
+            //Start attack
+            Instantiate(QProjectile, this.position, this.transform.rotation);
         }
 
         if(isCooldown1)
@@ -148,6 +159,10 @@ public class Abilities : MonoBehaviour
         {
             isCooldown2 = true;
             abilityImage2.fillAmount = 1;
+
+            //Start Ability
+            Instantiate(WParticles, this.transform.position, Quaternion.identity);
+            this.statScript.currentHealth += WHealAmount;
         }
 
         if (isCooldown2)
@@ -202,6 +217,10 @@ public class Abilities : MonoBehaviour
         {
             isCooldown4 = true;
             abilityImage4.fillAmount = 1;
+
+            //Start Ability
+            StartCoroutine(RDamageBuff(RMultiplier,RDuration));
+
         }
 
         if (isCooldown4)
@@ -214,5 +233,19 @@ public class Abilities : MonoBehaviour
                 isCooldown4 = false;
             }
         }
+    }
+
+    IEnumerator RDamageBuff(float damageBuff, float duration)
+    {
+        float staticAttackDamage = statScript.attackDamage;
+        float staticAttackSpeed = statScript.attackSpeed;
+
+        this.statScript.attackDamage *= damageBuff;
+        this.statScript.attackSpeed *= damageBuff;
+
+        yield return new WaitForSeconds(duration);
+
+        this.statScript.attackDamage = staticAttackDamage;
+        this.statScript.attackSpeed = staticAttackSpeed;
     }
 }
