@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1693664117352608340}
   - component: {fileID: 5128913763782271638}
   - component: {fileID: 4796517141399772921}
+  - component: {fileID: 3191052945478976716}
   m_Layer: 0
   m_Name: ArthurWParticles
   m_TagString: Untagged
@@ -4804,3 +4805,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3191052945478976716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3705590248951754975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c8ad1c99f0aa5429c22d080f04e174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleLife: 2
